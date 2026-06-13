@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Bingo Game</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div class="game-container">
+    <div id="bingoDisplay" class="bingo-tracker">
+      <span class="letter">B</span>
+      <span class="letter">I</span>
+      <span class="letter">N</span>
+      <span class="letter">G</span>
+      <span class="letter">O</span>
+    </div>
+
+    <div class="controls">
+      <button class="size-btn layoutBtn" data-index="0" data-size="5">5 x 5</button>
+      <button class="size-btn layoutBtn" data-index="1" data-size="7">7 x 7</button>
+      <button class="size-btn layoutBtn" data-index="2" data-size="10">10 x 10</button>
+    </div>
+
+    <div id="winMessage" class="message" style="display: none;">BINGO! You Win!</div>
+
+    <div id="board" class="bingo-board"></div>
+  </div>
+
+  <script src="./script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((reg) => {
+            console.log('Service Worker registered successfully!', reg);
+            
+            // Check if there's an update to the service worker file
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New content is available; force a page reload to apply changes instantly
+                    window.location.reload();
+                  }
+                };
+              }
+            };
+          })
+          .catch((err) => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
