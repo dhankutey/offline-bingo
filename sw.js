@@ -1,5 +1,4 @@
-// Incremented the version to v3 to force old browser caches to flush and update
-const CACHE_NAME = 'bingo-cache-v3';
+const CACHE_NAME = 'bingo-cache-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -14,11 +13,11 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS);
-    }).then(() => self.skipWaiting()) // Forces the waiting service worker to become active immediately
+    })
   );
 });
 
-// Activate Service Worker and clean up old caches instantly
+// Activate Service Worker and clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -29,11 +28,11 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim()) // Forces open pages to use the new service worker immediately
+    })
   );
 });
 
-// Fetch assets from cache if offline, otherwise pull from network
+// Fetch assets from cache if offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
