@@ -33,10 +33,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-button.active {
-    background-color: #28a745;
-}
-
 /* Bingo Progress Tracker Display */
 .bingo-tracker {
     display: flex;
@@ -65,7 +61,6 @@ button.active {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    justify-content: center;
 }
 
 /* Dynamic grid scale definitions using CSS variables */
@@ -109,11 +104,6 @@ button.active {
     background-color: #dee2e6;
 }
 
-.cell.lineDone {
-    background-color: #ffeeba;
-    color: #856404;
-}
-
 /* Consolidated selection indicator circle rules */
 .cell.marked::after {
     content: '';
@@ -126,10 +116,9 @@ button.active {
 }
 
 .message {
-    margin-bottom: 20px;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: bold;
     color: #28a745;
     height: 30px;
-    text-align: center;
 }
